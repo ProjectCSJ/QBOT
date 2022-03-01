@@ -1,12 +1,30 @@
 {
   "name": "qbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Discord Karaoke Queue Manager",
+  "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bot": "clear && node bot.js",
+    "command": "clear && deploy-commands.js",
+    "full": "clear && node deploy-commands.js && node bot.js"
   },
-  "keywords": [],
+  "keywords": [
+    "QBOT",
+    "QueueBot",
+    "KaraokeQueue"
+  ],
   "author": "友人Ｓ☄プロジェクトCSJ所属 <projectcsj@gmail.com> (https://csj.yeyunstudio.com/)",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@discordjs/rest": "^0.3.0",
+    "@discordjs/voice": "^0.8.0",
+    "discord-api-types": "^0.27.3",
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "node-color-log": "^7.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.10.0"
+  }
 }
