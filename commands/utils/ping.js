@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const dotenv = require(dotenv);
-dotenv.config();
 
 module.exports = {
 	defaultPermission: true,
@@ -11,7 +9,7 @@ module.exports = {
 	async execute(interaction) {
 		const ping = new MessageEmbed()
 			.setColor('RANDOM')
-			.setAuthor({ name: process.env.AuthorName, iconURL: process.env.IconURL, url: process.env.Site.URL })
+			.setAuthor({ name: process.env.AuthorName, iconURL: process.env.IconURL, url: process.env.SiteURL })
 			.setTitle('Pong!')
 			.setDescription(`延遲${Math.abs(Date.now() - interaction.createdTimestamp)}ms.`)
 			.setFooter({ text: process.env.COPYRIGHT, iconURL: process.env.IconURL });
