@@ -3,6 +3,7 @@
 
 // Console Settings
 const logger = require('node-color-log');
+logger.setDate(() => (new Date()).toLocaleString());
 
 // Setting Configuration
 const dotenv = require('dotenv');
@@ -12,7 +13,7 @@ const fs = require('fs');
 // Modules Import
 const { Client, Collection, Intents } = require('discord.js');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES] });
 
 client.commands = new Collection();
 
@@ -48,8 +49,8 @@ client.on('interactionCreate', async (interaction) => {
 		await command.execute(interaction);
 	}
 	catch (error) {
-		logger.warn(error);
-		await interaction.reply({ content: '觸發失敗!', ephemeral: true });
+		logger.warn(`${error}`);
+		await interaction.reply({ content: `Command Error!\nSend the error message screenshot to <@826327097945489408>\nError:\n\`\`\`${error}\`\`\``, ephemeral: true });
 	}
 });
 
