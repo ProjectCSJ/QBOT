@@ -5,8 +5,9 @@
   "main": "bot.js",
   "scripts": {
     "bot": "clear && node bot.js",
-    "command": "clear && deploy-commands.js",
-    "full": "clear && node deploy-commands.js && node bot.js"
+    "command": "clear && node deploy-commands.js",
+    "full": "clear && node deploy-commands.js && node bot.js",
+    "test": "clear && nodemon bot.js"
   },
   "keywords": [
     "QBOT",
@@ -23,7 +24,8 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "i18n": "^0.14.1",
-    "node-color-log": "^7.0.0"
+    "node-color-log": "^7.0.0",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^8.10.0"
