@@ -2,16 +2,13 @@
 /* eslint-disable no-tabs */
 
 // Setting Configutation
-const dotenv = require('dotenv');
-dotenv.config();
-const fs = require('fs');
-
-// Module Import
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const dotenv = require('dotenv');
+dotenv.config();
+const fs = require('node:fs');
 
 const commands = [];
-
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));
