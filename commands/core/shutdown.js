@@ -18,5 +18,6 @@ module.exports = {
 			.setDescription(`<@${interaction.client.user.id}> already shutted down by <@${interaction.user.id}>!`)
 			.setFooter({ text: process.env.COPYRIGHT, iconURL: process.env.IconURL });
 		await interaction.reply({ embeds: [shutdown], ephemeral: false });
+		process.exit(0);
 	},
 };
