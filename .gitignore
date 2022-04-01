@@ -105,3 +105,7 @@ dist
 
 # config.json
 config.json
+
+# database file
+*.sqlite
+*.db
