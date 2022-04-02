@@ -6,9 +6,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	defaultPermission: false,
 	data: new SlashCommandBuilder()
 		.setName('shutdown')
+		.setDefaultPermission(false)
 		.setDescription('Shut the bot down.'),
 	async execute(interaction) {
 		const shutdown = new MessageEmbed()
