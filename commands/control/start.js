@@ -3,13 +3,8 @@
 /* eslint-disable no-inline-comments */
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
-// const logger = require('node-color-log');
-
-// DataBase
-// const sqlite3 = require('sqlite3').verbose();
-// const dbfile = './data/data.db';
-// const db = new sqlite3.Database(dbfile, sqlite3.OPEN_CREATE);
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Queue } = require('/modules/queue/queue');
 
 module.exports = {
 	defaultPermission: true,
@@ -17,21 +12,15 @@ module.exports = {
 		.setName('start')
 		.setDescription('Start queue.'),
 	async execute(interaction) {
-		// const GID = interaction.guildId;
-		// db.serialize((err) => {
-		// 	if (err) return logger.log(err.message);
-		// 	db.run(`CREATE TABLE IF NOT EXISTS ${GID} (Queue INTEGER,UID TEXT)`);
-		// 	logger.info('DataBase create!');
-		// });
-		// db.close();
-
+		// eslint-disable-next-line no-unused-vars
+		const queue = new Queue(interaction.guild.id);
 		await interaction.channel.threads.create({
 			name: '[QBOT]Queue',
 			autoArchiveDuration: 60,
 			reason: `For queue in ${interaction.guild.name}`,
 		});
 		const thread = interaction.channel.threads.cache.find(x => x.name === '[QBOT]Queue');
-		const queue = new MessageEmbed()
+		const QueueStatus = new MessageEmbed()
 			.setColor('GREEN')
 			.setAuthor({ name: process.env.AuthorName, iconURL: process.env.IconURL, url: process.env.SiteURL })
 			.setTitle('Queue')
@@ -47,11 +36,23 @@ module.exports = {
 				},
 			)
 			.setFooter({ text: process.env.COPYRIGHT, iconURL: process.env.IconURL });
-		await thread.send({ content: 'Queue Start!', embeds: [queue] });
-		const reaction = thread.messages.cache.find(x => x.content === 'Queue Start!');
-		await reaction.react('⏩');
-		await reaction.react('➖');
-		// TODO: Join Stage
+		const QueueAction = new MessageActionRow()
+			.addComponents(
+				new MessageButton({
+					custom_id: 'next',
+					label: 'Next one',
+					style:'SUCCESS',
+				}),
+			)
+			.addComponents(
+				new MessageButton({
+					custom_id: 'remove',
+					label: 'Remove From Queue',
+					style:'DANGER',
+				}),
+			);
+		await thread.send({ content: 'Queue Start!', embeds: [QueueStatus], components: [QueueAction] });
+
 		await interaction.reply({ content: 'Queue Start!' });
 	},
 };
