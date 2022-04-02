@@ -4,7 +4,7 @@
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { Queue } = require('/modules/queue/queue');
+const { Queue } = require('../../modules/queue/queue');
 
 module.exports = {
 	defaultPermission: true,
