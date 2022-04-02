@@ -12,12 +12,22 @@ module.exports = {
 		.setDescription('Shut the bot down.'),
 	async execute(interaction) {
 		const shutdown = new MessageEmbed()
-			.setColor('RED')
-			.setAuthor({ name: process.env.AuthorName, iconURL: process.env.IconURL, url: process.env.SiteURL })
+			.setColor('#FE0F80')
+			.setAuthor({
+				name: process.env.AuthorName,
+				iconURL: process.env.IconURL,
+				url: process.env.SiteURL
+			})
 			.setTitle('🛑 緊急停止装置動作')
 			.setDescription(`<@${interaction.client.user.id}> already shutted down by <@${interaction.user.id}>!`)
-			.setFooter({ text: process.env.COPYRIGHT, iconURL: process.env.IconURL });
-		await interaction.reply({ embeds: [shutdown], ephemeral: false });
+			.setFooter({
+				text: process.env.COPYRIGHT,
+				iconURL: process.env.IconURL
+			});
+		await interaction.reply({
+			embeds: [shutdown],
+			ephemeral: false
+		});
 		process.exit(0);
 	},
 };
