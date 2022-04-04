@@ -12,7 +12,7 @@ module.exports = {
 		.setName('start')
 		.setDescription('Start queue.')
 		.addStringOption((option) =>
-			option.setName('ID')
+			option.setName('id')
 				.setDescription('Stage Channel ID')
 				.setRequired(true),
 		),
@@ -30,7 +30,7 @@ module.exports = {
 			.setAuthor({
 				name: process.env.AuthorName,
 				iconURL: process.env.IconURL,
-				url: process.env.SiteURL
+				url: process.env.SiteURL,
 			})
 			.setTitle('Queue')
 			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing :fast_forward: react to call up next one\nUsing :heavy_minus_sign: to leave queue`)
@@ -46,7 +46,7 @@ module.exports = {
 			)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL
+				iconURL: process.env.IconURL,
 			});
 		const QueueAction = new MessageActionRow()
 			.addComponents(
@@ -64,12 +64,13 @@ module.exports = {
 				}),
 			);
 		await thread.send({
+			content: 'Queue Start!',
 			embeds: [QueueStatus],
-			components: [QueueAction]
+			components: [QueueAction],
 		});
 
 		await interaction.reply({
-			content: 'Queue Start!'
+			content: 'Queue Start!',
 		});
 	},
 };

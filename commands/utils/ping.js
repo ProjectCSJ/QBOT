@@ -9,10 +9,17 @@ module.exports = {
 	async execute(interaction) {
 		const ping = new MessageEmbed()
 			.setColor('RANDOM')
-			.setAuthor({ name: process.env.AuthorName, iconURL: process.env.IconURL, url: process.env.SiteURL })
+			.setAuthor({
+				name: process.env.AuthorName,
+				iconURL: process.env.IconURL,
+				url: process.env.SiteURL,
+			})
 			.setTitle('Pong!')
 			.setDescription(`延遲${Math.abs(Date.now() - interaction.createdTimestamp)}ms.`)
-			.setFooter({ text: process.env.COPYRIGHT, iconURL: process.env.IconURL });
+			.setFooter({
+				text: process.env.COPYRIGHT,
+				iconURL: process.env.IconURL,
+			});
 		await interaction.reply({ embeds: [ping] });
 	},
 };

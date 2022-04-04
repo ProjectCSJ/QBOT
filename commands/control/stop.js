@@ -17,7 +17,7 @@ module.exports = {
 			.setAuthor({
 				name: process.env.AuthorName,
 				iconURL: process.env.IconURL,
-				url: process.env.SiteURL
+				url: process.env.SiteURL,
 			})
 			.setTitle('Queue Ended')
 			.setDescription(`Sorry!\nQueue in ${interaction.guild.name} already **ended**!`)
@@ -33,17 +33,17 @@ module.exports = {
 			)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL
+				iconURL: process.env.IconURL,
 			});
 		const message = thread.messages.cache.find(x => x.content === 'Queue Start!');
-		await message.reactions.removeAll();
 		await message.edit({
-			embeds: [queue]
+			content: 'Queue End!',
+			embeds: [queue],
 		});
 		await thread.setArchived(true);
 		// TODO: Leave Stage
 		await interaction.reply({
-			content: 'Queue Ended!'
+			content: 'Queue Ended!',
 		});
 	},
 };
