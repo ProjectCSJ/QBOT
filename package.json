@@ -6,10 +6,10 @@
   "scripts": {
     "bot": "clear && node bot.js",
     "command": "clear && node deploy-commands.js",
-    "db":"node dbinit.js",
+    "db": "node dbinit.js",
     "full": "clear && node deploy-commands.js && node bot.js",
     "test": "clear && nodemon bot.js",
-    "watch":"clear && nodemon deploy-commands.js "
+    "watch": "clear && nodemon deploy-commands.js "
   },
   "keywords": [
     "QBOT",
@@ -32,6 +32,8 @@
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.10.0"
+    "eslint": "^8.10.0",
+    "prettier": "^2.6.2",
+    "prettier-eslint": "^13.0.0"
   }
 }
