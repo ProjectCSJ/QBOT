@@ -12,7 +12,6 @@ module.exports = {
 		.setDefaultPermission(true)
 		.setDescription('Start queue.')
 		.setName('start'),
-
 	async execute(interaction) {
 		const message = thread.messages.cache.find(x => x.content === 'Queue Start!');
 		if (message !== undefined) return await interaction.reply('Queue already started!\nPlease using that tread');
