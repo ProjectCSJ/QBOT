@@ -1,39 +1,30 @@
-/* eslint-disable max-len */
-/* eslint-disable no-tabs */
-/* eslint-disable no-inline-comments */
-
-const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { Queue } = require('../../modules/queue/queue');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-	defaultPermission: true,
 	data: new SlashCommandBuilder()
-		.setName('start')
-		.setDescription('Start queue.')
 		.addStringOption((option) =>
 			option.setName('id')
 				.setDescription('Stage Channel ID')
 				.setRequired(true),
-		),
+		)
+		.setDefaultPermission(true)
+		.setDescription('Start queue.')
+		.setName('start'),
+
 	async execute(interaction) {
+		const message = thread.messages.cache.find(x => x.content === 'Queue Start!');
+		if (message !== undefined) return await interaction.reply('Queue already started!\nPlease using that tread');
 		// eslint-disable-next-line no-unused-vars
 		const queue = new Queue(interaction.guild.id);
 		await interaction.channel.threads.create({
-			name: '[QBOT]Queue',
 			autoArchiveDuration: 60,
+			name: process.env.QueueName,
 			reason: `For queue in ${interaction.guild.name}`,
 		});
-		const thread = interaction.channel.threads.cache.find(x => x.name === '[QBOT]Queue');
+		const thread = interaction.channel.threads.cache.find(x => x.name === process.env.QueueName);
 		const QueueStatus = new MessageEmbed()
-			.setColor('#00D1BD')
-			.setAuthor({
-				name: process.env.AuthorName,
-				iconURL: process.env.IconURL,
-				url: process.env.SiteURL,
-			})
-			.setTitle('Queue')
-			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing :fast_forward: react to call up next one\nUsing :heavy_minus_sign: to leave queue`)
 			.addFields(
 				{
 					name: 'Now Singing',
@@ -44,10 +35,18 @@ module.exports = {
 					value:'**Wait to queue**',
 				},
 			)
-			.setFooter({
-				text: process.env.COPYRIGHT,
+			.setAuthor({
 				iconURL: process.env.IconURL,
-			});
+				name: process.env.AuthorName,
+				url: process.env.SiteURL,
+			})
+			.setColor('#00D1BD')
+			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing :fast_forward: react to call up next one\nUsing :heavy_minus_sign: to leave queue`)
+			.setFooter({
+				iconURL: process.env.IconURL,
+				text: process.env.COPYRIGHT,
+			})
+			.setTitle('Queue');
 		const QueueAction = new MessageActionRow()
 			.addComponents(
 				new MessageButton({
@@ -64,9 +63,9 @@ module.exports = {
 				}),
 			);
 		await thread.send({
+			components: [QueueAction],
 			content: 'Queue Start!',
 			embeds: [QueueStatus],
-			components: [QueueAction],
 		});
 
 		await interaction.reply({
