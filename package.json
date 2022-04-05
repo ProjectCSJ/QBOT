@@ -6,7 +6,7 @@
   "scripts": {
     "bot": "clear && node bot.js",
     "command": "clear && node deploy-commands.js",
-    "db": "node dbinit.js",
+    "db": "node dbInit.js",
     "full": "clear && node deploy-commands.js && node bot.js",
     "test": "clear && nodemon bot.js",
     "watch": "clear && nodemon deploy-commands.js "
