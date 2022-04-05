@@ -19,7 +19,7 @@ module.exports = {
 				name: interaction.user.tag,
 				url: `https://discord.com/users/${interaction.user.id}`,
 			})
-			.setColor('#00D1BD')
+			.setColor('#49E0F4')
 			.setDescription(`<@${interaction.user.id}> wanna swap with U`)
 			.setFooter({
 				iconURL: process.env.IconURL,
