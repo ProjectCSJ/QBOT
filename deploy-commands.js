@@ -1,7 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-tabs */
-
-// Setting Configutation
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const dotenv = require('dotenv');

@@ -1,8 +1,3 @@
-// When mention join to queue
-/* eslint-disable max-len */
-/* eslint-disable no-tabs */
-/* eslint-disable no-inline-comments */
-
 module.exports = {
 	name: 'messageCreate',
 	once: false,

@@ -7,16 +7,16 @@ module.exports = {
 		.setDefaultPermission(true)
 		.setDescription('Stop queue.'),
 	async execute(interaction) {
-		const thread = interaction.channel.threads.cache.find(x => x.name === process.env.QueueName);
+		const thread = interaction.channel.threads.cache.find((x) => x.name === process.env.QueueName);
 		const queue = new MessageEmbed()
 			.addFields(
 				{
 					name: 'Now Singing',
-					value:'**Queue Ended!**',
+					value: '**Queue Ended!**',
 				},
 				{
 					name: 'Queue list',
-					value:'**Queue Ended!**',
+					value: '**Queue Ended!**',
 				},
 			)
 			.setAuthor({
@@ -31,7 +31,7 @@ module.exports = {
 				iconURL: process.env.IconURL,
 			})
 			.setTitle('Queue Ended');
-		const message = thread.messages.cache.find(x => x.content === 'Queue Start!');
+		const message = thread.messages.cache.find((x) => x.content === 'Queue Start!');
 		await message.edit({
 			content: 'Queue End!',
 			embeds: [queue],

@@ -113,7 +113,22 @@
         "space-unary-ops": "error",
         "spaced-comment": "error",
         "yoda": "error",
-        "max-len": "off",
-        "no-tabs": "off"
+        "max-len": [
+            "error",
+            200
+        ],
+        "no-tabs": "off",
+        "require-jsdoc": [
+            "off",
+            {
+                "require": {
+                    "FunctionDeclaration": true,
+                    "MethodDefinition": false,
+                    "ClassDeclaration": false,
+                    "ArrowFunctionExpression": false,
+                    "FunctionExpression": false
+                }
+            }
+        ]
     }
 }

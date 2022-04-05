@@ -1,8 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-tabs */
-/* eslint-disable no-inline-comments */
-
-// Logger Settings
 const logger = require('node-color-log');
 
 module.exports = {
@@ -17,7 +12,7 @@ module.exports = {
 			status: 'idle',
 		});
 
-		logger.info(`⏳Trying to login system with ${client.user.tag}...`); // login to user
+		logger.info(`⏳Trying to login system with ${client.user.tag}...`);
 		logger.info('✔️Logged in success!');
 		logger.info(`Logged in user:${client.user.tag}!`);
 	},
