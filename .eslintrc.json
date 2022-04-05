@@ -1,11 +1,14 @@
 {
-    "extends": "eslint:recommended",
     "env": {
-        "node": true,
-        "es6": true
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
     },
+    "extends": [
+        "google"
+    ],
     "parserOptions": {
-        "ecmaVersion": 2021
+        "ecmaVersion": "latest"
     },
     "rules": {
         "arrow-spacing": [
@@ -109,6 +112,8 @@
         "space-infix-ops": "error",
         "space-unary-ops": "error",
         "spaced-comment": "error",
-        "yoda": "error"
+        "yoda": "error",
+        "max-len": "off",
+        "no-tabs": "off"
     }
 }
