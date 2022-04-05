@@ -13,8 +13,6 @@ module.exports = {
 		.setDescription('Start queue.')
 		.setName('start'),
 	async execute(interaction) {
-		const message = thread.messages.cache.find((x) => x.content === 'Queue Start!');
-		if (message !== undefined) return await interaction.reply('Queue already started!\nPlease using that tread');
 		// eslint-disable-next-line no-unused-vars
 		const queue = new Queue(interaction.guild.id);
 		await interaction.channel.threads.create({
