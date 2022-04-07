@@ -5,6 +5,6 @@ module.exports = {
 	once: false,
 	execute(interaction) {
 		if (interaction.isCommand()) return logger.debug(`${interaction.user.tag} in #${interaction.channel.name} triggered ${interaction.commandName} command!`);
-		if (interaction.isButton()) return logger.debug(`${interaction.user.tag} triggered  button ${interaction.customId}`);
+		if (interaction.isButton()) return logger.debug(`${interaction.user.tag} triggered button ${interaction.customId}`);
 	},
 };
