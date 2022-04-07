@@ -47,6 +47,7 @@ module.exports = {
 		});
 		await interaction.reply({
 			content: `I already ask <@${user.id}>`,
+			ephemeral: true,
 		});
 	},
 };

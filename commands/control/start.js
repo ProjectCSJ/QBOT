@@ -67,6 +67,7 @@ module.exports = {
 
 		await interaction.reply({
 			content: 'Queue Start!',
+			ephemeral: false,
 		});
 	},
 };

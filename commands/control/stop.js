@@ -40,6 +40,7 @@ module.exports = {
 		// TODO: Leave Stage
 		await interaction.reply({
 			content: 'Queue Ended!',
+			ephemeral: false,
 		});
 	},
 };

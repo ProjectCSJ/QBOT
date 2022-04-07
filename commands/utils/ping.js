@@ -20,6 +20,9 @@ module.exports = {
 				text: process.env.COPYRIGHT,
 				iconURL: process.env.IconURL,
 			});
-		await interaction.reply({ embeds: [ping] });
+		await interaction.reply({
+			embeds: [ping],
+			ephemeral: false,
+		});
 	},
 };
