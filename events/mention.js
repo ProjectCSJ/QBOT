@@ -19,7 +19,7 @@ module.exports = {
 				});
 			}
 			return await message.author.send({
-				content: 'I\'ll put u on the queue',
+				content: 'I\'ll put U on the queue',
 				ephemeral: false,
 			});
 		}
