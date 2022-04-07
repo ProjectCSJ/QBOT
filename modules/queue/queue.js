@@ -18,7 +18,7 @@ class Queue {
 	async addUser(userId) {
 		const count = await this.getRowCount() + 1;
 		// console.log(count);
-		if(!await this.getUserById(userId)) {
+		if (!await this.getUserById(userId)) {
 			await this.user.create({
 				user_id: userId,
 				index: count,
@@ -64,7 +64,7 @@ class Queue {
 	}
 
 	async getUserById(userId) {
-		const result = await this.user.findOne( { where: { user_id: userId } } );
+		const result = await this.user.findOne({ where: { user_id: userId } });
 		return result;
 	}
 }
