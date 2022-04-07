@@ -18,12 +18,11 @@ class Queue {
 	async addUser(userId) {
 		const count = await this.getRowCount() + 1;
 		// console.log(count);
-		if (!await this.getUserById(userId)) {
-			await this.user.create({
-				user_id: userId,
-				index: count,
-			});
-		}
+		if (await this.getUserById(userId)) return 'error';
+		await this.user.create({
+			user_id: userId,
+			index: count,
+		});
 	}
 
 	async swapUser(userA, userB) {
