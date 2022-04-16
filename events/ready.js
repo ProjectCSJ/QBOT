@@ -1,6 +1,7 @@
 const logger = require('node-color-log');
 const { execSync } = require('child_process');
 const fs = require('node:fs');
+const { generateDependencyReport } = require('@discordjs/voice');
 
 module.exports = {
 	name: 'ready',
@@ -23,6 +24,7 @@ module.exports = {
 		}
 		logger.info('DB checked!');
 
+		logger.debug('\n' + generateDependencyReport());
 		logger.debug(`⏳Trying to login system with ${client.user.tag}...`);
 		logger.debug('✔️Logged in success!');
 		logger.info(`Logged in user:${client.user.tag}!`);
