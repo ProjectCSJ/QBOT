@@ -1,11 +1,13 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { Queue } = require('../../modules/queue/queue');
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { joinVoiceChannel } = require('@discordjs/voice');
+const logger = require('node-color-log');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.addStringOption((option) =>
-			option.setName('id')
+		.addChannelOption((option) =>
+			option.setName('channel')
 				.setDescription('Stage Channel ID')
 				.setRequired(true),
 		)
@@ -13,6 +15,24 @@ module.exports = {
 		.setDescription('Start queue.')
 		.setName('start'),
 	async execute(interaction) {
+		const channel = interaction.options.getChannel('channel');
+		logger.debug(channel.type);
+		if (channel.type !== 'GUILD_STAGE_VOICE') {
+			return await interaction.reply({
+				content: 'U should using a Stage channel',
+				ephemeral: true,
+			});
+		}
+
+		// eslint-disable-next-line no-unused-vars
+		const connect = joinVoiceChannel({
+			channelId: channel.id,
+			guildId: interaction.guild.id,
+			adapterCreator: interaction.guild.voiceAdapterCreator,
+		});
+
+		logger.debug(interaction.guild.me.voice.channel);
+
 		// eslint-disable-next-line no-unused-vars
 		const queue = new Queue(interaction.guild.id);
 		await interaction.channel.threads.create({
