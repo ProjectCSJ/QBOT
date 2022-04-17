@@ -2,11 +2,21 @@ const logger = require('node-color-log');
 const { execSync } = require('child_process');
 const fs = require('node:fs');
 const { generateDependencyReport } = require('@discordjs/voice');
+const date = new Date().toLocaleString(undefined, {
+	year: 'numeric',
+	month: '2-digit',
+	day: '2-digit',
+	hour: '2-digit',
+	hour12: false,
+	minute: '2-digit',
+	timeZoneName: 'short',
+}).replace(/\:|\//g, '-');
 
 module.exports = {
 	name: 'ready',
 	once: true,
 	async execute(client) {
+		logger.debug(date);
 		client.user.setPresence({
 			activities: [{
 				name: 'Private Beta',

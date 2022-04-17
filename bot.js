@@ -1,5 +1,13 @@
 const logger = require('node-color-log');
-logger.setDate(() => (new Date()).toLocaleString());
+logger.setDate(() => new Date().toLocaleString(undefined, {
+	year: 'numeric',
+	month: '2-digit',
+	day: '2-digit',
+	hour: '2-digit',
+	hour12: false,
+	minute: '2-digit',
+	second: '2-digit',
+}).replace(/\//g, '-'));
 // logger.setLevel('info'); // comment when developement
 
 const dotenv = require('dotenv');
@@ -19,6 +27,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.buttons = new Collection();
 
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
@@ -27,6 +36,12 @@ for (const folder of commandFolders) {
 		const command = require(`./commands/${folder}/${file}`);
 		client.commands.set(command.data.name, command);
 	}
+}
+
+const buttonFiles = fs.readdirSync('./modules/buttons/').filter((file) => file.endsWith('.js'));
+for (const file of buttonFiles) {
+	const button = require(`./modules/buttons/${file}`);
+	client.buttons.set(file, button);
 }
 
 const eventFiles = fs.readdirSync('./events').filter((file) => file.endsWith('.js'));
@@ -55,6 +70,13 @@ client.on('interactionCreate', async (interaction) => {
 		logger.warn(`${error}`);
 		await interaction.reply({ content: `Command Error!\nSend the error message screenshot to <@826327097945489408>\nError:\n\`\`\`log\n${error}\`\`\``, ephemeral: true });
 	}
+});
+
+client.on('interactionCreate', async (interaction) => {
+	if (!interaction.isButton()) return;
+	// TODO: Make button interaction
+	const button = client.buttons.get(interaction.customId + '.js');
+	await button.execute(interaction);
 });
 
 client.login(process.env.TOKEN);
