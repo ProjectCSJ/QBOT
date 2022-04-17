@@ -2,13 +2,12 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { Queue } = require('../../modules/queue/queue');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { joinVoiceChannel } = require('@discordjs/voice');
-const logger = require('node-color-log');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.addChannelOption((option) =>
 			option.setName('channel')
-				.setDescription('Stage Channel ID')
+				.setDescription('Stage Channel')
 				.setRequired(true),
 		)
 		.setDefaultPermission(true)
@@ -16,7 +15,6 @@ module.exports = {
 		.setName('start'),
 	async execute(interaction) {
 		const channel = interaction.options.getChannel('channel');
-		logger.debug(channel.type);
 		if (channel.type !== 'GUILD_STAGE_VOICE') {
 			return await interaction.reply({
 				content: 'U should using a Stage channel',
@@ -38,6 +36,8 @@ module.exports = {
 			name: process.env.QueueName,
 			reason: `For queue in ${interaction.guild.name}`,
 		});
+		await interaction.guild.me.voice.setSuppressed(false);
+
 		const thread = interaction.channel.threads.cache.find((x) => x.name === process.env.QueueName);
 		const QueueStatus = new MessageEmbed()
 			.addFields(
@@ -56,7 +56,7 @@ module.exports = {
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
-			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing :fast_forward: react to call up next one\nUsing :heavy_minus_sign: to leave queue`)
+			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing button to control`)
 			.setFooter({
 				iconURL: process.env.IconURL,
 				text: process.env.COPYRIGHT,
@@ -82,7 +82,7 @@ module.exports = {
 			content: 'Queue Start!',
 			embeds: [QueueStatus],
 		});
-		await interaction.guild.me.voice.setSuppressed(false);
+
 		await interaction.reply({
 			content: 'Queue Start!',
 			ephemeral: false,

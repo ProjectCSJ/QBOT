@@ -8,7 +8,15 @@ const fs = require('node:fs');
 
 const { Client, Collection, Intents } = require('discord.js');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES] });
+const client = new Client({
+	intents: [
+		Intents.FLAGS.DIRECT_MESSAGES,
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+		Intents.FLAGS.GUILD_VOICE_STATES,
+	],
+});
 
 client.commands = new Collection();
 
@@ -45,7 +53,7 @@ client.on('interactionCreate', async (interaction) => {
 	}
 	catch (error) {
 		logger.warn(`${error}`);
-		await interaction.reply({ content: `Command Error!\nSend the error message screenshot to <@826327097945489408>\nError:\n\`\`\`${error}\`\`\``, ephemeral: true });
+		await interaction.reply({ content: `Command Error!\nSend the error message screenshot to <@826327097945489408>\nError:\n\`\`\`log\n${error}\`\`\``, ephemeral: true });
 	}
 });
 
