@@ -31,8 +31,6 @@ module.exports = {
 			adapterCreator: interaction.guild.voiceAdapterCreator,
 		});
 
-		logger.debug(interaction.guild.me.voice.channel);
-
 		// eslint-disable-next-line no-unused-vars
 		const queue = new Queue(interaction.guild.id);
 		await interaction.channel.threads.create({
@@ -84,7 +82,7 @@ module.exports = {
 			content: 'Queue Start!',
 			embeds: [QueueStatus],
 		});
-
+		await interaction.guild.me.voice.setSuppressed(false);
 		await interaction.reply({
 			content: 'Queue Start!',
 			ephemeral: false,
