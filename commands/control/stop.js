@@ -36,6 +36,7 @@ module.exports = {
 			content: 'Queue End!',
 			embeds: [queue],
 		});
+		await interaction.guild.me.voice.disconnect();
 		await thread.setArchived(true);
 		// TODO: Leave Stage
 		await interaction.reply({
