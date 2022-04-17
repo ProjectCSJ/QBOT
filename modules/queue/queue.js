@@ -63,7 +63,7 @@ class Queue {
 	}
 
 	async getUserById(userId) {
-		const result = await this.user.findOne({ where: { user_id: userId } });
+		const result = await this.user.findOne({ where: { user_id: userId }, raw: true });
 		return result;
 	}
 }
