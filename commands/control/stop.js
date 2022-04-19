@@ -7,7 +7,9 @@ module.exports = {
 		.setDefaultPermission(true)
 		.setDescription('Stop queue.'),
 	async execute(interaction) {
-		const thread = interaction.channel.threads.cache.find((x) => x.name === process.env.QueueName);
+		await interaction.guild.me.voice.disconnect();
+		const threadname = process.env.QueueName;
+		const thread = interaction.channel.threads.cache.find((x) => x.name.startsWith(threadname));
 		const queue = new MessageEmbed()
 			.addFields(
 				{
@@ -31,15 +33,15 @@ module.exports = {
 				iconURL: process.env.IconURL,
 			})
 			.setTitle('Queue Ended');
-		const message = thread.messages.cache.find((x) => x.content === 'Queue Start!');
+		const message = thread.messages.cache.find((x) => x.content === ('Queue Start!'));
 		await message.edit({
 			content: 'Queue End!',
 			embeds: [queue],
 		});
-		await interaction.guild.me.voice.disconnect();
+
 		await thread.setArchived(true);
-		// TODO: Leave Stage
-		await interaction.reply({
+
+		return await interaction.reply({
 			content: 'Queue Ended!',
 			ephemeral: false,
 		});

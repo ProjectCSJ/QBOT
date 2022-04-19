@@ -2,6 +2,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { Queue } = require('../../modules/queue/queue');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { joinVoiceChannel } = require('@discordjs/voice');
+const logger = require('node-color-log');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -15,6 +16,7 @@ module.exports = {
 		.setName('start'),
 	async execute(interaction) {
 		const channel = interaction.options.getChannel('channel');
+
 		if (channel.type !== 'GUILD_STAGE_VOICE') {
 			return await interaction.reply({
 				content: 'U should using a Stage channel',
@@ -29,16 +31,30 @@ module.exports = {
 			adapterCreator: interaction.guild.voiceAdapterCreator,
 		});
 
-		// eslint-disable-next-line no-unused-vars
-		const queue = new Queue(interaction.guild.id);
+		const date = new Date().toLocaleString(undefined, {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			hour12: false,
+			minute: '2-digit',
+			timeZoneName: 'short',
+		}).replace(/\:|\//g, '-');
+
+		const threadname = process.env.QueueName + ' ' + date;
+		logger.debug(threadname);
 		await interaction.channel.threads.create({
 			autoArchiveDuration: 60,
-			name: process.env.QueueName,
+			name: threadname,
 			reason: `For queue in ${interaction.guild.name}`,
 		});
+
 		await interaction.guild.me.voice.setSuppressed(false);
 
-		const thread = interaction.channel.threads.cache.find((x) => x.name === process.env.QueueName);
+		// eslint-disable-next-line no-unused-vars
+		const queue = new Queue(interaction.guild.id);
+
+		const thread = interaction.channel.threads.cache.find((x) => x.name === threadname);
 		const QueueStatus = new MessageEmbed()
 			.addFields(
 				{
@@ -56,7 +72,7 @@ module.exports = {
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
-			.setDescription(`Here's queue in ${interaction.guild.name}\nUsing button to control`)
+			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
 				iconURL: process.env.IconURL,
 				text: process.env.COPYRIGHT,

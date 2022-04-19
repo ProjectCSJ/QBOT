@@ -45,7 +45,7 @@ class Queue {
 
 	async getUserQueue() {
 		const list = await this.user.findAll({
-			attributes: ['user_id'],
+			attributes: ['user_id', 'index'],
 			order: [['index', 'ASC']],
 			raw: true,
 		});
