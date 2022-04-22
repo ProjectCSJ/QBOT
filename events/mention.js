@@ -32,6 +32,8 @@ module.exports = {
 			const QueueRowCount = await queue.getRowCount();
 			if (QueueRowCount === 1) {
 				const now = await queue.getFirst();
+				const userObj = await message.guild.members.cache.get(now.user_id);
+				await userObj.voice.setSuppressed(false);
 				QueueStatus
 					.addFields(
 						{
@@ -90,8 +92,8 @@ module.exports = {
 					})
 					.setTitle('Queue');
 			}
-			const threadname = process.env.QueueName;
-			const thread = message.channel.threads.cache.find((x) => x.name.startsWith(threadname));
+			const threadObj = await queue.getGuild();
+			const thread = message.channel.threads.cache.find((x) => x.id === threadObj.thread_id);
 			const QueueMessage = thread.messages.cache.find((x) => x.content === 'Queue Start!');
 			await QueueMessage.edit({
 				components: [QueueAction],

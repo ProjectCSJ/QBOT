@@ -14,6 +14,12 @@ module.exports = {
 	async execute(interaction) {
 		const user = interaction.options.getUser('target');
 		const SwapEmbed = new MessageEmbed()
+			.addFields(
+				{
+					name: 'GID',
+					value: interaction.guildId,
+				},
+			)
 			.setAuthor({
 				iconURL: interaction.user.avatarURL({ dynamic: true }),
 				name: interaction.user.tag,

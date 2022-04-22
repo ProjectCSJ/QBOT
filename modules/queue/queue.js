@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { Op } = require('@sequelize/core');
+const logger = require('node-color-log');
 const sequelize = new Sequelize('database', 'username', 'password', {
 	host: 'localhost',
 	dialect: 'sqlite',
@@ -11,7 +12,9 @@ class Queue {
 	constructor(guildId) {
 		this.guildId = guildId;
 		this.user = require('./user.js')(sequelize, Sequelize.DataTypes, guildId);
+		this.thread = require('./thread.js')(sequelize, Sequelize.DataTypes);
 		this.user.sync();
+		this.thread.sync();
 		// this.user.sync({ force: true });
 	}
 
@@ -28,6 +31,8 @@ class Queue {
 	async swapUser(userA, userB) {
 		const a = await this.user.findOne({ where: { user_id: userA } });
 		const b = await this.user.findOne({ where: { user_id: userB } });
+		logger.debug(a.index);
+		logger.debug(b.index);
 		const indexA = b.index;
 		const indexB = a.index;
 		await this.user.update({ index: indexA }, { where: { user_id: a.user_id } });
@@ -65,6 +70,23 @@ class Queue {
 	async getUserById(userId) {
 		const result = await this.user.findOne({ where: { user_id: userId }, raw: true });
 		return result;
+	}
+
+	async getGuild() {
+		const result = await this.thread.findOne({ where: { guild_id: this.guildId }, raw: true });
+		return result;
+	}
+
+	async updateThreadId(threadId) {
+		if (!await this.getGuild(this.guildId)) {
+			await this.thread.create({
+				guild_id: this.guildId,
+				thread_id: threadId,
+			});
+		}
+		else {
+			await this.thread.update({ thread_id: threadId }, { where: { guild_id: this.guildId } });
+		}
 	}
 }
 

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
+const { Queue } = require('../../modules/queue/queue');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,10 +8,12 @@ module.exports = {
 		.setDefaultPermission(true)
 		.setDescription('Stop queue.'),
 	async execute(interaction) {
+		const queue = new Queue(interaction.guildId);
 		await interaction.guild.me.voice.disconnect();
-		const threadname = process.env.QueueName;
-		const thread = interaction.channel.threads.cache.find((x) => x.name.startsWith(threadname));
-		const queue = new MessageEmbed()
+		// const threadname = process.env.QueueName;
+		const result = await queue.getGuild();
+		const thread = interaction.channel.threads.cache.find((x) => x.id === result.thread_id);
+		const QueueStatus = new MessageEmbed()
 			.addFields(
 				{
 					name: 'Now Singing',
@@ -36,7 +39,7 @@ module.exports = {
 		const message = thread.messages.cache.find((x) => x.content === ('Queue Start!'));
 		await message.edit({
 			content: 'Queue End!',
-			embeds: [queue],
+			embeds: [QueueStatus],
 		});
 
 		await thread.setArchived(true);

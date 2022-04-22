@@ -11,6 +11,9 @@ module.exports = {
 		if (interaction.user.id !== userId) return interaction.user.send('U can\'t do that!\nReason: Not current user.');
 		await queue.delUser(userId);
 
+		const userObj = await interaction.guild.members.cache.get(userId);
+		await userObj.voice.setSuppressed(true);
+
 		const QueueStatus = new MessageEmbed();
 		const QueueRowCount = await queue.getRowCount();
 
@@ -56,6 +59,8 @@ module.exports = {
 		}
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
+			const nowUser = await interaction.guild.members.cache.get(now.user_id);
+			await nowUser.voice.setSuppressed(false);
 			QueueStatus
 				.addFields(
 					{
@@ -82,6 +87,8 @@ module.exports = {
 		}
 		if (QueueRowCount > 1) {
 			const now = await queue.getFirst();
+			const nowUser = await interaction.guild.members.cache.get(now.user_id);
+			await nowUser.voice.setSuppressed(false);
 			let list = '';
 			const QueueList = await queue.getUserQueue();
 			QueueList.forEach((element) => {

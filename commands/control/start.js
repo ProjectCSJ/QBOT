@@ -15,6 +15,9 @@ module.exports = {
 		.setDescription('Start queue.')
 		.setName('start'),
 	async execute(interaction) {
+		if (interaction.guild.me.voice.channel !== null) {
+			return await interaction.reply({ content: 'U can\'t start new queue!\nReason:```log\nA queue already started!```', ephemeral: true });
+		}
 		const channel = interaction.options.getChannel('channel');
 
 		if (channel.type !== 'GUILD_STAGE_VOICE') {
@@ -55,6 +58,7 @@ module.exports = {
 		const queue = new Queue(interaction.guild.id);
 
 		const thread = interaction.channel.threads.cache.find((x) => x.name === threadname);
+		await queue.updateThreadId(thread.id);
 		const QueueStatus = new MessageEmbed()
 			.addFields(
 				{
@@ -100,7 +104,7 @@ module.exports = {
 		});
 
 		await interaction.reply({
-			content: 'Queue Start!',
+			content: `Queue Start @ <#${channel.id}>!`,
 			ephemeral: false,
 		});
 	},
