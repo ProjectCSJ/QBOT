@@ -40,7 +40,7 @@ module.exports = {
 						value: '**Wait to Queue**',
 					},
 					{
-						name: 'Queue list',
+						name: 'Queue List',
 						value: '**Wait to Queue**',
 					},
 				)
@@ -68,7 +68,7 @@ module.exports = {
 						value: `<@${now.user_id}>`,
 					},
 					{
-						name: 'Queue list',
+						name: 'Queue List',
 						value: '**Last One!**',
 					},
 				)
@@ -93,9 +93,7 @@ module.exports = {
 			const QueueList = await queue.getUserQueue();
 			QueueList.forEach((element) => {
 				logger.debug(element);
-				if (element.index !== 1) {
-					list += '<@' + element.user_id + '>\n';
-				}
+				if (element.index !== 1) list += '<@' + element.user_id + '>\n';
 			});
 			QueueStatus
 				.addFields(
@@ -104,7 +102,7 @@ module.exports = {
 						value: `<@${now.user_id}>`,
 					},
 					{
-						name: 'Queue list',
+						name: 'Queue List',
 						value: list,
 					},
 				)
