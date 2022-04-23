@@ -26,7 +26,7 @@ module.exports = {
 			await message.delete();
 			if (message.guild.me.voice.channel === null) return await message.author.send('No queue started.');
 			const queue = new Queue(message.guildId);
-			logger.debug(`${message.author.tag} triggered event mention`);
+			logger.info(`${message.author.tag} triggered event mention`);
 			const result = await queue.addUser(message.author.id);
 			const QueueStatus = new MessageEmbed();
 			const QueueRowCount = await queue.getRowCount();
