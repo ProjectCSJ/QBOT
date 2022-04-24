@@ -22,7 +22,7 @@ module.exports = {
 		const QueueList = await queue.getUserQueue();
 		let checker = 0;
 		QueueList.forEach((element) => {
-			if (element.id === user.id) checker = 1;
+			if (element.id === user.user_id) checker = 1;
 		});
 		if (checker === 0) return interaction.reply({ content: 'U can\'t swap with someone didn\'t in queue.', ephemeral: true });
 		const SwapEmbed = new MessageEmbed()

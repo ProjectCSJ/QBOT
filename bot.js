@@ -76,7 +76,7 @@ client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isButton()) return;
 	// TODO: Make button interaction
 	const button = client.buttons.get(interaction.customId + '.js');
-	await button.execute(interaction);
+	await button.execute(interaction, client);
 });
 
 client.login(process.env.TOKEN);

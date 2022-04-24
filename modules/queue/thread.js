@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			primaryKey: true,
 		},
+		channel_id: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		thread_id: {
 			type: DataTypes.STRING,
 			allowNull: false,

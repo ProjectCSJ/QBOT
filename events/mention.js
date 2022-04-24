@@ -28,6 +28,7 @@ module.exports = {
 			const queue = new Queue(message.guildId);
 			logger.info(`${message.author.tag} triggered event mention`);
 			const result = await queue.addUser(message.author.id);
+			if (result === 'error') return await message.author.send({ content: 'U can\'t join the queue when U still in', ephemeral: false });
 			const QueueStatus = new MessageEmbed();
 			const QueueRowCount = await queue.getRowCount();
 			if (QueueRowCount === 1) {
@@ -94,18 +95,13 @@ module.exports = {
 			}
 			const threadObj = await queue.getGuild();
 			const thread = message.channel.threads.cache.find((x) => x.id === threadObj.thread_id);
+			// test: get()
 			const QueueMessage = thread.messages.cache.find((x) => x.content === 'Queue Start!');
 			await QueueMessage.edit({
 				components: [QueueAction],
 				content: 'Queue Start!',
 				embeds: [QueueStatus],
 			});
-			if (result === 'error') {
-				return await message.author.send({
-					content: 'U can\'t join the queue when U still in',
-					ephemeral: false,
-				});
-			}
 			return await message.author.send({
 				content: 'I\'ll put U on the queue',
 				ephemeral: false,

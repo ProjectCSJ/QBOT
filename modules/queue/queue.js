@@ -77,15 +77,17 @@ class Queue {
 		return result;
 	}
 
-	async updateThreadId(threadId) {
-		if (!await this.getGuild(this.guildId)) {
+	async updateId(channelId, threadId) {
+		if (!await this.getGuild()) {
 			await this.thread.create({
 				guild_id: this.guildId,
 				thread_id: threadId,
+				channel_id: channelId,
 			});
 		}
 		else {
 			await this.thread.update({ thread_id: threadId }, { where: { guild_id: this.guildId } });
+			await this.thread.update({ channel_id: channelId }, { where: { guild_id: this.guildId } });
 		}
 	}
 }

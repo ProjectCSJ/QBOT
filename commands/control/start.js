@@ -58,7 +58,10 @@ module.exports = {
 		const queue = new Queue(interaction.guild.id);
 
 		const thread = interaction.channel.threads.cache.find((x) => x.name === threadname);
-		await queue.updateThreadId(thread.id);
+		const channelId = interaction.channel.id;
+		logger.debug(thread.id);
+		logger.debug(channelId);
+		await queue.updateId(channelId, thread.id);
 		const QueueStatus = new MessageEmbed()
 			.addFields(
 				{
