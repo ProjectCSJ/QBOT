@@ -6,7 +6,7 @@ module.exports = {
 	name: 'messageCreate',
 	once: false,
 	async execute(message) {
-		if (/<@!?948362856624189460>/.test(message.content)) {
+		if (message.content === '<@948362856624189460>') {
 			const QueueAction = new MessageActionRow()
 				.addComponents(
 					new MessageButton({
@@ -34,32 +34,59 @@ module.exports = {
 			if (QueueRowCount === 1) {
 				const now = await queue.getFirst();
 				const userObj = await message.guild.members.cache.get(now.user_id);
-				await userObj.voice.setSuppressed(false);
-				QueueStatus
-					.addFields(
-						{
-							name: 'Now Singing',
-							value: `<@${now.user_id}>`,
-						},
-						{
-							name: 'Queue list',
-							value: '**Last One!**',
-						},
-					)
-					.setAuthor({
-						name: process.env.AuthorName,
-						iconURL: process.env.IconURL,
-						url: process.env.SiteURL,
-					})
-					.setColor('#00D1BD')
-					.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
-					.setFooter({
-						text: process.env.COPYRIGHT,
-						iconURL: process.env.IconURL,
-					})
-					.setTitle('Queue');
+				try {
+					await userObj.voice.setSuppressed(false);
+					QueueStatus
+						.addFields(
+							{
+								name: 'Now Singing',
+								value: `<@${now.user_id}>`,
+							},
+							{
+								name: 'Queue list',
+								value: '**Last One!**',
+							},
+						)
+						.setAuthor({
+							name: process.env.AuthorName,
+							iconURL: process.env.IconURL,
+							url: process.env.SiteURL,
+						})
+						.setColor('#00D1BD')
+						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
+						.setFooter({
+							text: process.env.COPYRIGHT,
+							iconURL: process.env.IconURL,
+						})
+						.setTitle('Queue');
+				}
+				catch (e) {
+					QueueStatus
+						.addFields(
+							{
+								name: 'Now Singing',
+								value: 'U can only join when u are in the stage channel.',
+							},
+							{
+								name: 'Queue list',
+								value: '**Last One!**',
+							},
+						)
+						.setAuthor({
+							name: process.env.AuthorName,
+							iconURL: process.env.IconURL,
+							url: process.env.SiteURL,
+						})
+						.setColor('#00D1BD')
+						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
+						.setFooter({
+							text: process.env.COPYRIGHT,
+							iconURL: process.env.IconURL,
+						})
+						.setTitle('Queue');
+				}
 			}
-			if (QueueRowCount > 1) {
+			else if (QueueRowCount > 1) {
 				const now = await queue.getFirst();
 				let list = '';
 				const QueueList = await queue.getUserQueue();
@@ -103,7 +130,7 @@ module.exports = {
 				embeds: [QueueStatus],
 			});
 			return await message.author.send({
-				content: 'I\'ll put U on the queue',
+				content: 'I\'ll put U in the queue',
 				ephemeral: false,
 			});
 		}
