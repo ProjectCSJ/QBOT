@@ -10,7 +10,6 @@ module.exports = {
 		logger.debug(userId);
 		if (interaction.user.id !== userId) return interaction.user.send('U can\'t do that!\nReason: Not current user.');
 		await queue.delUser(userId);
-
 		const userObj = await interaction.guild.members.cache.get(userId);
 		await userObj.voice.setSuppressed(true);
 
@@ -32,6 +31,7 @@ module.exports = {
 					style: 'DANGER',
 				}),
 			);
+
 		if (QueueRowCount < 1) {
 			QueueStatus
 				.addFields(
@@ -60,7 +60,12 @@ module.exports = {
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
 			const nowUser = await interaction.guild.members.cache.get(now.user_id);
-			await nowUser.voice.setSuppressed(false);
+			try {
+				await nowUser.voice.setSuppressed(false);
+			}
+			catch (e) {
+				// todo: handle not in stage channel
+			}
 			QueueStatus
 				.addFields(
 					{
@@ -88,7 +93,12 @@ module.exports = {
 		if (QueueRowCount > 1) {
 			const now = await queue.getFirst();
 			const nowUser = await interaction.guild.members.cache.get(now.user_id);
-			await nowUser.voice.setSuppressed(false);
+			try {
+				await nowUser.voice.setSuppressed(false);
+			}
+			catch (e) {
+				// todo: handle not in stage channel
+			}
 			let list = '';
 			const QueueList = await queue.getUserQueue();
 			QueueList.forEach((element) => {

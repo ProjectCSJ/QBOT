@@ -1,0 +1,16 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.addChannelOption((option) =>
+			option.setName('channel')
+				.setDescription('Stage Channel')
+				.setRequired(true),
+		)
+		.setDefaultPermission(true)
+		.setDescription('Start queue.')
+		.setName('start'),
+	async execute(interaction) {
+		interaction.reply({ content: 'unfinished' });
+	},
+};

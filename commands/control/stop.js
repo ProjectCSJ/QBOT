@@ -42,6 +42,8 @@ module.exports = {
 			embeds: [QueueStatus],
 		});
 
+		await queue.endQueue();
+
 		await thread.setArchived(true);
 
 		return await interaction.reply({

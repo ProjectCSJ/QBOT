@@ -26,6 +26,8 @@ module.exports = {
 			await message.delete();
 			if (message.guild.me.voice.channel === null) return await message.author.send('No queue started.');
 			const queue = new Queue(message.guildId);
+			const guildObj = await queue.getGuild();
+			if (guildObj.channel_id != message.channel.id) return await message.author.send(`Please ping bot in <#${guildObj.channel_id}>`);
 			logger.info(`${message.author.tag} triggered event mention`);
 			const result = await queue.addUser(message.author.id);
 			if (result === 'error') return await message.author.send({ content: 'U can\'t join the queue when U still in', ephemeral: false });

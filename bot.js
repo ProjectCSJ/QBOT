@@ -28,7 +28,23 @@ const client = new Client({
 
 client.commands = new Collection();
 client.buttons = new Collection();
-
+/*
+console.log(client);
+const ShutdownCommand = client.application.commands.cache.find((x) => x.name === shutdown);
+ShutdownCommand.permissions.add(
+	{
+		command: ShutdownCommand.id,
+		permissions:
+			[
+				{
+					id: '826327097945489408',
+					type: 'USER',
+					permission: true,
+				},
+			],
+	},
+);
+*/
 const commandFolders = fs.readdirSync('./commands');
 for (const folder of commandFolders) {
 	const commandFiles = fs.readdirSync(`./commands/${folder}`).filter((file) => file.endsWith('.js'));

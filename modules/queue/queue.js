@@ -90,6 +90,11 @@ class Queue {
 			await this.thread.update({ channel_id: channelId }, { where: { guild_id: this.guildId } });
 		}
 	}
+
+	async endQueue() {
+		await this.user.drop();
+		await this.thread.destroy({ where: { guild_id: this.guildId } });
+	}
 }
 
 module.exports.Queue = Queue;
