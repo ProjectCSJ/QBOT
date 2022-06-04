@@ -11,12 +11,13 @@
     "test": "clear && nodemon bot.js",
     "watch": "clear && nodemon deploy-commands.js "
   },
+
   "keywords": [
     "QBOT",
     "QueueBot",
     "KaraokeQueue"
   ],
-  "author": "友人Ｓ☄プロジェクトCSJ所属 <projectcsj@gmail.com> (https://csj.yeyunstudio.com/)",
+  "author": "友人Ｓ☄プロジェクトCSJ所属 <projectcsj@gmail.com> (https://projectcsj.github.io/)",
   "license": "GPL-3.0",
   "dependencies": {
     "@discordjs/builders": "^0.12.0",
@@ -41,5 +42,16 @@
     "eslint-config-google": "^0.14.0",
     "prettier": "^2.6.2",
     "prettier-eslint": "^13.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectCSJ/QBOT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ProjectCSJ/QBOT/issues"
+  },
+  "homepage": "https://github.com/ProjectCSJ/QBOT#readme",
+  "os": [
+    "linux"
+  ]
 }
