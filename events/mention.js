@@ -30,8 +30,20 @@ module.exports = {
 			if (guildObj.channel_id != message.channel.id) return await message.author.send(`Please ping bot in <#${guildObj.channel_id}>`);
 			logger.info(`${message.author.tag} triggered event mention`);
 			const result = await queue.addUser(message.author.id);
-			if (result === 'error') return await message.author.send({ content: 'U can\'t join the queue when U still in', ephemeral: false });
-			const QueueStatus = new MessageEmbed();
+			if (result === 'error') return await message.author.send('U can\'t join the queue when U still in');
+			const QueueStatus = new MessageEmbed()
+				.setAuthor({
+					name: process.env.AuthorName,
+					iconURL: process.env.IconURL,
+					url: process.env.SiteURL,
+				})
+				.setColor('#00D1BD')
+				.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
+				.setFooter({
+					text: process.env.COPYRIGHT,
+					iconURL: process.env.IconURL,
+				})
+				.setTitle('Queue');
 			const QueueRowCount = await queue.getRowCount();
 			if (QueueRowCount === 1) {
 				const now = await queue.getFirst();
@@ -73,19 +85,7 @@ module.exports = {
 								name: 'Queue list',
 								value: '**Last One!**',
 							},
-						)
-						.setAuthor({
-							name: process.env.AuthorName,
-							iconURL: process.env.IconURL,
-							url: process.env.SiteURL,
-						})
-						.setColor('#00D1BD')
-						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
-						.setFooter({
-							text: process.env.COPYRIGHT,
-							iconURL: process.env.IconURL,
-						})
-						.setTitle('Queue');
+						);
 				}
 			}
 			else if (QueueRowCount > 1) {
@@ -108,19 +108,7 @@ module.exports = {
 							name: 'Queue list',
 							value: list,
 						},
-					)
-					.setAuthor({
-						name: process.env.AuthorName,
-						iconURL: process.env.IconURL,
-						url: process.env.SiteURL,
-					})
-					.setColor('#00D1BD')
-					.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
-					.setFooter({
-						text: process.env.COPYRIGHT,
-						iconURL: process.env.IconURL,
-					})
-					.setTitle('Queue');
+					);
 			}
 			const threadObj = await queue.getGuild();
 			const thread = message.channel.threads.cache.find((x) => x.id === threadObj.thread_id);

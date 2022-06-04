@@ -13,7 +13,19 @@ module.exports = {
 		const userObj = await interaction.guild.members.cache.get(userId);
 		await userObj.voice.setSuppressed(true);
 
-		const QueueStatus = new MessageEmbed();
+		const QueueStatus = new MessageEmbed()
+			.setAuthor({
+				name: process.env.AuthorName,
+				iconURL: process.env.IconURL,
+				url: process.env.SiteURL,
+			})
+			.setColor('#00D1BD')
+			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
+			.setFooter({
+				text: process.env.COPYRIGHT,
+				iconURL: process.env.IconURL,
+			})
+			.setTitle('Queue');
 		const QueueRowCount = await queue.getRowCount();
 
 		const QueueAction = new MessageActionRow()
@@ -43,19 +55,7 @@ module.exports = {
 						name: 'Queue List',
 						value: '**Wait to Queue**',
 					},
-				)
-				.setAuthor({
-					name: process.env.AuthorName,
-					iconURL: process.env.IconURL,
-					url: process.env.SiteURL,
-				})
-				.setColor('#00D1BD')
-				.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
-				.setFooter({
-					text: process.env.COPYRIGHT,
-					iconURL: process.env.IconURL,
-				})
-				.setTitle('Queue');
+				);
 		}
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
@@ -76,19 +76,7 @@ module.exports = {
 						name: 'Queue List',
 						value: '**Last One!**',
 					},
-				)
-				.setAuthor({
-					name: process.env.AuthorName,
-					iconURL: process.env.IconURL,
-					url: process.env.SiteURL,
-				})
-				.setColor('#00D1BD')
-				.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
-				.setFooter({
-					text: process.env.COPYRIGHT,
-					iconURL: process.env.IconURL,
-				})
-				.setTitle('Queue');
+				);
 		}
 		if (QueueRowCount > 1) {
 			const now = await queue.getFirst();
@@ -115,19 +103,7 @@ module.exports = {
 						name: 'Queue List',
 						value: list,
 					},
-				)
-				.setAuthor({
-					name: process.env.AuthorName,
-					iconURL: process.env.IconURL,
-					url: process.env.SiteURL,
-				})
-				.setColor('#00D1BD')
-				.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
-				.setFooter({
-					text: process.env.COPYRIGHT,
-					iconURL: process.env.IconURL,
-				})
-				.setTitle('Queue');
+				);
 		}
 
 		const QueueMessage = interaction.channel.messages.cache.find((x) => x.content === ('Queue Start!'));
