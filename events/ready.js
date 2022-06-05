@@ -19,10 +19,10 @@ module.exports = {
 		logger.debug(date);
 		client.user.setPresence({
 			activities: [{
-				name: 'Private Beta',
+				name: 'Public Beta',
 				type: 'PLAYING',
 			}],
-			status: 'idle',
+			status: 'online',
 		});
 
 		logger.info('Checking DB status');
