@@ -33,15 +33,15 @@ module.exports = {
 			if (result === 'error') return await message.author.send('U can\'t join the queue when U still in');
 			const QueueStatus = new MessageEmbed()
 				.setAuthor({
-					name: process.env.AuthorName,
-					iconURL: process.env.IconURL,
+					name: message.guild.me.displayName,
+					iconURL: message.guild.me.avatarURL({ dynamic: true }),
 					url: process.env.SiteURL,
 				})
 				.setColor('#00D1BD')
 				.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 				.setFooter({
 					text: process.env.COPYRIGHT,
-					iconURL: process.env.IconURL,
+					iconURL: message.guild.me.avatarURL({ dynamic: true }),
 				})
 				.setTitle('Queue');
 			const QueueRowCount = await queue.getRowCount();
@@ -62,15 +62,15 @@ module.exports = {
 							},
 						)
 						.setAuthor({
-							name: process.env.AuthorName,
-							iconURL: process.env.IconURL,
+							name: message.guild.me.displayName,
+							iconURL: message.guild.me.avatarURL({ dynamic: true }),
 							url: process.env.SiteURL,
 						})
 						.setColor('#00D1BD')
 						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 						.setFooter({
 							text: process.env.COPYRIGHT,
-							iconURL: process.env.IconURL,
+							iconURL: message.guild.me.avatarURL({ dynamic: true }),
 						})
 						.setTitle('Queue');
 				}

@@ -20,8 +20,8 @@ module.exports = {
 		await queue.swapUser(UserId, targetId);
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: process.env.AuthorName,
-				iconURL: process.env.IconURL,
+				name: QueueGuild.me.displayName,
+				iconURL: QueueGuild.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
@@ -95,7 +95,7 @@ module.exports = {
 			.setDescription('Okay～♪')
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL,
+				iconURL: QueueGuild.me.avatarURL({ dynamic: true }),
 			})
 			.setTitle('Swap Result');
 		await QueueMessage.edit({

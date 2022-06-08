@@ -15,15 +15,15 @@ module.exports = {
 
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: process.env.AuthorName,
-				iconURL: process.env.IconURL,
+				name: interaction.guild.me.displayName,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
 			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
 			})
 			.setTitle('Queue');
 		const QueueRowCount = await queue.getRowCount();

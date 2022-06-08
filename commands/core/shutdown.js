@@ -9,15 +9,15 @@ module.exports = {
 	async execute(interaction) {
 		const shutdown = new MessageEmbed()
 			.setAuthor({
-				name: process.env.AuthorName,
-				iconURL: process.env.IconURL,
+				name: interaction.guild.me.displayName,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#FE0F80')
 			.setDescription(`<@${interaction.client.user.id}> already shutted down by <@${interaction.user.id}>!`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
 			})
 			.setTitle('🛑 緊急停止装置動作');
 		await interaction.reply({

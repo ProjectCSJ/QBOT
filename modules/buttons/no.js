@@ -5,7 +5,9 @@ module.exports = {
 		const UserTag = interaction.user.tag;
 		const UserIcon = interaction.user.avatarURL({ format: 'png', dynamic: true });
 		const UserId = interaction.user.id;
-		const UserUrl = `https://discord.com/user/${UserId}`;
+		const UserUrl = `https://discord.com/users/${UserId}`;
+		const QueueGuildId = interaction.message.embeds[0].fields[0].value;
+		const QueueGuild = client.guilds.cache.find((x) => x.id === QueueGuildId);
 		const target = interaction.message.embeds[0].description;
 		const targetId = target.replace(/\D/g, '');
 		const ReplyEmbed = new MessageEmbed()
@@ -18,7 +20,7 @@ module.exports = {
 			.setDescription('Nope')
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: process.env.IconURL,
+				iconURL: QueueGuild.me.avatarURL({ dynamic: true }),
 			})
 			.setTitle('Swap Result');
 		await interaction.deferUpdate();

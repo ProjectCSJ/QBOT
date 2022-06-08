@@ -74,14 +74,14 @@ module.exports = {
 				},
 			)
 			.setAuthor({
-				iconURL: process.env.IconURL,
-				name: process.env.AuthorName,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
+				name: interaction.guild.me.displayName,
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
 			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
-				iconURL: process.env.IconURL,
+				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
 				text: process.env.COPYRIGHT,
 			})
 			.setTitle('Queue');
