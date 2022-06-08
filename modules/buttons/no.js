@@ -20,7 +20,7 @@ module.exports = {
 			.setDescription('Nope')
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: QueueGuild.me.avatarURL({ dynamic: true }),
+				iconURL: QueueGuild.me.avatarURL(),
 			})
 			.setTitle('Swap Result');
 		await interaction.deferUpdate();

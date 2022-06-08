@@ -40,7 +40,7 @@ module.exports = {
 			.setColor('#49E0F4')
 			.setDescription(`<@${interaction.user.id}> wanna swap with U`)
 			.setFooter({
-				iconURL: interaction.guild.me.avatarURL({ dynamic: true }),
+				iconURL: interaction.guild.me.avatarURL(),
 				text: process.env.COPYRIGHT,
 			})
 			.setTitle('Swap');

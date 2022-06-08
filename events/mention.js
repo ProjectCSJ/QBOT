@@ -34,14 +34,14 @@ module.exports = {
 			const QueueStatus = new MessageEmbed()
 				.setAuthor({
 					name: message.guild.me.displayName,
-					iconURL: message.guild.me.avatarURL({ dynamic: true }),
+					iconURL: message.guild.me.avatarURL(),
 					url: process.env.SiteURL,
 				})
 				.setColor('#00D1BD')
 				.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 				.setFooter({
 					text: process.env.COPYRIGHT,
-					iconURL: message.guild.me.avatarURL({ dynamic: true }),
+					iconURL: message.guild.me.avatarURL(),
 				})
 				.setTitle('Queue');
 			const QueueRowCount = await queue.getRowCount();
@@ -63,14 +63,14 @@ module.exports = {
 						)
 						.setAuthor({
 							name: message.guild.me.displayName,
-							iconURL: message.guild.me.avatarURL({ dynamic: true }),
+							iconURL: message.guild.me.avatarURL(),
 							url: process.env.SiteURL,
 						})
 						.setColor('#00D1BD')
 						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 						.setFooter({
 							text: process.env.COPYRIGHT,
-							iconURL: message.guild.me.avatarURL({ dynamic: true }),
+							iconURL: message.guild.me.avatarURL(),
 						})
 						.setTitle('Queue');
 				}
