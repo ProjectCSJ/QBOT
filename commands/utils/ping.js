@@ -10,7 +10,7 @@ module.exports = {
 		const ping = new MessageEmbed()
 			.setColor('RANDOM')
 			.setAuthor({
-				name: interaction.guild.me.displayName,
+				name: interaction.guild.members.me.displayName,
 				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})

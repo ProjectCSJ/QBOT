@@ -20,7 +20,7 @@ module.exports = {
 		await queue.swapUser(UserId, targetId);
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: QueueGuild.me.displayName,
+				name: QueueGuild.members.me.displayName,
 				iconURL: QueueGuild.members.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})

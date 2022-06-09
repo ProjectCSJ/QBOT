@@ -12,7 +12,7 @@ module.exports = {
 		await queue.delUser(interaction.user.id);
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: interaction.guild.me.displayName,
+				name: interaction.guild.members.me.displayName,
 				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})

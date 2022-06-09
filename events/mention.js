@@ -33,7 +33,7 @@ module.exports = {
 			if (result === 'error') return await message.author.send('U can\'t join the queue when U still in');
 			const QueueStatus = new MessageEmbed()
 				.setAuthor({
-					name: message.guild.me.displayName,
+					name: message.guild.members.me.displayName,
 					iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
 					url: process.env.SiteURL,
 				})
@@ -62,7 +62,7 @@ module.exports = {
 							},
 						)
 						.setAuthor({
-							name: message.guild.me.displayName,
+							name: message.guild.members.me.displayName,
 							iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
 							url: process.env.SiteURL,
 						})

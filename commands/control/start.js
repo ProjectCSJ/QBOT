@@ -75,7 +75,7 @@ module.exports = {
 			)
 			.setAuthor({
 				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
-				name: interaction.guild.me.displayName,
+				name: interaction.guild.members.me.displayName,
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
