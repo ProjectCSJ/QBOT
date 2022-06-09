@@ -33,21 +33,21 @@ module.exports = {
 			if (result === 'error') return await message.author.send('U can\'t join the queue when U still in');
 			const QueueStatus = new MessageEmbed()
 				.setAuthor({
-					name: message.guild.members.me.displayName,
-					iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
+					name: message.guild.me.displayName,
+					iconURL: message.guild.me.displayAvatarURL({ dynamic: true }),
 					url: process.env.SiteURL,
 				})
 				.setColor('#00D1BD')
 				.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 				.setFooter({
 					text: process.env.COPYRIGHT,
-					iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
+					iconURL: message.guild.me.displayAvatarURL({ dynamic: true }),
 				})
 				.setTitle('Queue');
 			const QueueRowCount = await queue.getRowCount();
 			if (QueueRowCount === 1) {
 				const now = await queue.getFirst();
-				const userObj = await message.guild.members.cache.get(now.user_id);
+				const userObj = await message.guild.cache.get(now.user_id);
 				try {
 					await userObj.voice.setSuppressed(false);
 					QueueStatus
@@ -62,15 +62,15 @@ module.exports = {
 							},
 						)
 						.setAuthor({
-							name: message.guild.members.me.displayName,
-							iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
+							name: message.guild.me.displayName,
+							iconURL: message.guild.me.displayAvatarURL({ dynamic: true }),
 							url: process.env.SiteURL,
 						})
 						.setColor('#00D1BD')
 						.setDescription(`Here's queue in ${message.guild.name}!\nUsing button to control`)
 						.setFooter({
 							text: process.env.COPYRIGHT,
-							iconURL: message.guild.members.me.avatarURL({ dynamic: true }),
+							iconURL: message.guild.me.displayAvatarURL({ dynamic: true }),
 						})
 						.setTitle('Queue');
 				}

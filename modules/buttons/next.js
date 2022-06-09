@@ -10,20 +10,20 @@ module.exports = {
 		logger.debug(userId);
 		if (interaction.user.id !== userId) return interaction.user.send('U can\'t do that!\nReason: Not current user.');
 		await queue.delUser(userId);
-		const userObj = await interaction.guild.members.cache.get(userId);
+		const userObj = await interaction.guild.cache.get(userId);
 		await userObj.voice.setSuppressed(true);
 
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: interaction.guild.members.me.displayName,
-				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
+				name: interaction.guild.me.displayName,
+				iconURL: interaction.guild.me.displayAvatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
 			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
+				iconURL: interaction.guild.me.displayAvatarURL({ dynamic: true }),
 			})
 			.setTitle('Queue');
 		const QueueRowCount = await queue.getRowCount();
@@ -59,7 +59,7 @@ module.exports = {
 		}
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
-			const nowUser = await interaction.guild.members.cache.get(now.user_id);
+			const nowUser = await interaction.guild.cache.get(now.user_id);
 			try {
 				await nowUser.voice.setSuppressed(false);
 			}
@@ -80,7 +80,7 @@ module.exports = {
 		}
 		if (QueueRowCount > 1) {
 			const now = await queue.getFirst();
-			const nowUser = await interaction.guild.members.cache.get(now.user_id);
+			const nowUser = await interaction.guild.cache.get(now.user_id);
 			try {
 				await nowUser.voice.setSuppressed(false);
 			}

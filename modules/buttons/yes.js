@@ -5,7 +5,7 @@ const { Queue } = require('../queue/queue.js');
 module.exports = {
 	async execute(interaction, client) {
 		const UserTag = interaction.user.tag;
-		const UserIcon = interaction.user.avatarURL({ format: 'png', dynamic: true });
+		const UserIcon = interaction.user.displayAvatarURL({ format: 'png', dynamic: true });
 		const UserId = interaction.user.id;
 		const UserUrl = `https://discord.com/users/${UserId}`;
 		const target = interaction.message.embeds[0].description;
@@ -20,8 +20,8 @@ module.exports = {
 		await queue.swapUser(UserId, targetId);
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: QueueGuild.members.me.displayName,
-				iconURL: QueueGuild.members.me.avatarURL({ dynamic: true }),
+				name: QueueGuild.me.displayName,
+				iconURL: QueueGuild.me.displayAvatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
@@ -34,7 +34,7 @@ module.exports = {
 		const QueueRowCount = await queue.getRowCount();
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
-			const userObj = await message.guild.members.cache.get(now.user_id);
+			const userObj = await message.guild.cache.get(now.user_id);
 			await userObj.voice.setSuppressed(false);
 			QueueStatus
 				.addFields(
@@ -95,7 +95,7 @@ module.exports = {
 			.setDescription('Okay～♪')
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: QueueGuild.members.me.avatarURL({ dynamic: true }),
+				iconURL: QueueGuild.me.displayAvatarURL({ dynamic: true }),
 			})
 			.setTitle('Swap Result');
 		await QueueMessage.edit({

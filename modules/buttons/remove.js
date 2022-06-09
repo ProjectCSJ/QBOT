@@ -12,15 +12,15 @@ module.exports = {
 		await queue.delUser(interaction.user.id);
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
-				name: interaction.guild.members.me.displayName,
-				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
+				name: interaction.guild.me.displayName,
+				iconURL: interaction.guild.me.displayAvatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
 			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
+				iconURL: interaction.guild.me.displayAvatarURL({ dynamic: true }),
 			})
 			.setTitle('Queue');
 		const QueueRowCount = await queue.getRowCount();

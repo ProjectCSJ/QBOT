@@ -10,15 +10,15 @@ module.exports = {
 		const ping = new MessageEmbed()
 			.setColor('RANDOM')
 			.setAuthor({
-				name: interaction.guild.members.me.displayName,
-				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
+				name: interaction.guild.me.displayName,
+				iconURL: interaction.guild.me.displayAvatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setTitle('Pong!')
 			.setDescription(`延遲${Math.abs(Date.now() - interaction.createdTimestamp)}ms.`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: interaction.guild.me.avatarURL(),
+				iconURL: interaction.guild.me.displayAvatarURL(),
 			});
 		await interaction.reply({
 			embeds: [ping],

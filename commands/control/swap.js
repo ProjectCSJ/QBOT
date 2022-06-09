@@ -33,14 +33,14 @@ module.exports = {
 				},
 			)
 			.setAuthor({
-				iconURL: interaction.user.avatarURL({ dynamic: true }),
+				iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
 				name: interaction.user.tag,
 				url: `https://discord.com/users/${interaction.user.id}`,
 			})
 			.setColor('#49E0F4')
 			.setDescription(`<@${interaction.user.id}> wanna swap with U`)
 			.setFooter({
-				iconURL: interaction.guild.me.avatarURL(),
+				iconURL: interaction.guild.me.displayAvatarURL(),
 				text: process.env.COPYRIGHT,
 			})
 			.setTitle('Swap');
