@@ -13,14 +13,14 @@ module.exports = {
 		const QueueStatus = new MessageEmbed()
 			.setAuthor({
 				name: interaction.guild.me.displayName,
-				iconURL: interaction.guild.me.avatarURL(),
+				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setColor('#00D1BD')
 			.setDescription(`Here's queue in ${interaction.guild.name}!\nUsing button to control`)
 			.setFooter({
 				text: process.env.COPYRIGHT,
-				iconURL: interaction.guild.me.avatarURL(),
+				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
 			})
 			.setTitle('Queue');
 		const QueueRowCount = await queue.getRowCount();

@@ -11,7 +11,7 @@ module.exports = {
 			.setColor('RANDOM')
 			.setAuthor({
 				name: interaction.guild.me.displayName,
-				iconURL: interaction.guild.me.avatarURL(),
+				iconURL: interaction.guild.members.me.avatarURL({ dynamic: true }),
 				url: process.env.SiteURL,
 			})
 			.setTitle('Pong!')
