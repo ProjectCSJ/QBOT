@@ -8,9 +8,12 @@ module.exports = {
 		const user = await queue.getFirst();
 		const userId = user?.user_id;
 		logger.debug(userId);
-		if (interaction.user.id !== userId) return interaction.user.send('U can\'t do that!\nReason: Not current user.');
+		if (interaction.user.id !== userId) {
+			await interaction.deferUpdate();
+			return interaction.user.send('U can\'t do that!\nReason: Not current user.');
+		}
 		await queue.delUser(userId);
-		const userObj = await interaction.guild.cache.get(userId);
+		const userObj = await interaction.guild.members.cache.get(userId);
 		await userObj.voice.setSuppressed(true);
 
 		const QueueStatus = new MessageEmbed()
@@ -59,7 +62,7 @@ module.exports = {
 		}
 		if (QueueRowCount === 1) {
 			const now = await queue.getFirst();
-			const nowUser = await interaction.guild.cache.get(now.user_id);
+			const nowUser = await interaction.guild.members.cache.get(now.user_id);
 			try {
 				await nowUser.voice.setSuppressed(false);
 			}
@@ -80,7 +83,7 @@ module.exports = {
 		}
 		if (QueueRowCount > 1) {
 			const now = await queue.getFirst();
-			const nowUser = await interaction.guild.cache.get(now.user_id);
+			const nowUser = await interaction.guild.members.cache.get(now.user_id);
 			try {
 				await nowUser.voice.setSuppressed(false);
 			}

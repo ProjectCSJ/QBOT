@@ -47,7 +47,7 @@ module.exports = {
 			const QueueRowCount = await queue.getRowCount();
 			if (QueueRowCount === 1) {
 				const now = await queue.getFirst();
-				const userObj = await message.guild.cache.get(now.user_id);
+				const userObj = await message.guild.members.cache.get(now.user_id);
 				try {
 					await userObj.voice.setSuppressed(false);
 					QueueStatus
