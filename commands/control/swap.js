@@ -17,12 +17,17 @@ module.exports = {
 		const FirstOne = await queue.getFirst();
 		const duration = 5;
 		const user = interaction.options.getUser('target');
+		const QueueList = await queue.getUserQueue();
+		let check = 0;
+		QueueList.forEach((element) => {
+			if (element.user_id === interaction.user.id) check = 1;
+		})
+		if (check === 0) return interaction.reply({ content: `Sorry, but U are not in the queue` });
 		if (user.id === interaction.user.id) return interaction.reply({ content: 'U can\'t swap with yourself', ephemeral: true });
 		if (user.id === FirstOne.user_id) return interaction.reply({ content: 'Sorry, but U can\'t swap with someone who is singing.', ephemeral: true });
-		const QueueList = await queue.getUserQueue();
 		let checker = 0;
 		QueueList.forEach((element) => {
-			if (element.id === user.user_id) checker = 1;
+			if (element.user_id === user.id) checker = 1;
 		});
 		if (checker === 0) return interaction.reply({ content: 'U can\'t swap with someone didn\'t in queue.', ephemeral: true });
 		const SwapEmbed = new MessageEmbed()
